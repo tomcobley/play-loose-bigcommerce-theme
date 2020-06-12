@@ -1,0 +1,2 @@
+# Ignore .stencil config file (contains API key)
+.stencil
