@@ -1,2 +1,5 @@
 # Ignore .stencil config file (contains API key)
 .stencil
+
+# Ignore theme modules (can be installed with 'npm install')
+node_modules/
