@@ -1,0 +1,14 @@
+<div class="hall-of-fame">
+    {{#if category.subcategories}}
+        <div class="sidebarBlock">
+            <ul class="navList">
+                {{#each category.subcategories as |player|}}
+                    <li class="navList-item">
+                        {{> components/display/profile info=player}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+
+</div>

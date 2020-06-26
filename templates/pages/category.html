@@ -18,41 +18,78 @@ category:
 {{#partial "page"}}
 
 {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
-{{#if category.image}}
-    {{> components/common/responsive-img
-        image=category.image
-        fallback_size=theme_settings.zoom_size
-        lazyload=theme_settings.lazyload_mode
-        class="category-header-image"
-    }}
-{{/if}}
+
+{{!-- unless category is Player (or child of player), display image --}}
+{{#eq ../breadcrumbs.[1].name "Players"}}
+    {{!-- no action --}}
+{{else}}
+    {{#if category.image}}
+        {{> components/common/responsive-img
+            image=category.image
+            fallback_size=theme_settings.zoom_size
+            lazyload=theme_settings.lazyload_mode
+            class="category-header-image"
+        }}
+    {{/if}}
+{{/eq}}
+
+
 {{#unless theme_settings.hide_category_page_heading }}
     <h1 class="page-heading">{{category.name}}</h1>
     {{{region name="category_below_header"}}}
 {{/unless}}
-{{{category.description}}}
+
+{{!-- If category is 'Players', display hall of fame --}}
+{{#eq category.name "Players"}}
+    {{> components/display/hall-of-fame}}
+
+{{else}}
+    {{!-- If parent of current category is 'Players', then this category is a player, so display full profile --}}
+    {{#eq ../breadcrumbs.[1].name "Players"}}
+        {{> components/display/profile-full info=category}}
+
+    {{!-- otherwise, category is normal, so just display description --}}
+    {{else}}
+        {{{category.description}}}
+
+    {{/eq}}
+
+{{/eq}}
+
 <div class="page">
-    {{#if category.faceted_search_enabled}}
-        <aside class="page-sidebar" id="faceted-search-container">
-            {{> components/category/sidebar}}
-        </aside>
-    {{else if category.subcategories}}
-        <aside class="page-sidebar" id="faceted-search-container">
-            {{> components/category/sidebar}}
-        </aside>
-    {{else if category.shop_by_price}}
-        {{#if theme_settings.shop_by_price_visibility}}
-             <aside class="page-sidebar" id="faceted-search-container">
+
+    <!-- If category is 'Players', don't display children sidebar (display hall of fame instead (below)) -->
+    {{#eq category.name "Players"}}
+        {{!-- no content required --}}
+    {{else}}
+
+        {{!-- diplay child categories sidebar --}}
+        {{#if ../category.faceted_search_enabled}}
+            <aside class="page-sidebar" id="faceted-search-container">
                 {{> components/category/sidebar}}
             </aside>
+        {{else if ../category.subcategories}}
+            <aside class="page-sidebar" id="faceted-search-container">
+                {{> components/category/sidebar}}
+            </aside>
+        {{else if ../category.shop_by_price}}
+            {{#if theme_settings.shop_by_price_visibility}}
+                 <aside class="page-sidebar" id="faceted-search-container">
+                    {{> components/category/sidebar}}
+                </aside>
+            {{/if}}
         {{/if}}
-    {{/if}}
+
+    {{/eq}}
+
 
     <main class="page-content" id="product-listing-container">
+
+
         {{#if category.products}}
             {{> components/category/product-listing}}
         {{else}}
-            <p>{{lang 'categories.no_products'}}</p>
+            {{#eq category.name "Players"}}{{else}}<p>{{lang 'categories.no_products'}}</p>{{/eq}}
         {{/if}}
         {{{region name="category_below_content"}}}
     </main>

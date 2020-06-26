@@ -26,6 +26,14 @@ blog:
     {{/each}}
 
 <div class="main full">
+
+    {{> components/display/spotlight-fila-stripe }}
+
+    {{> components/display/spotlight
+          url="https://localhost:3000/bjorn-borg-headband/"
+          src="https://cdn11.bigcommerce.com/s-jpona4k0ew/images/stencil/1280x1280/products/112/376/il_570xN.1737150636_ffw5__10314.1591025281.jpg"
+    }}
+
     {{#if products.featured}}
         {{> components/products/featured products=products.featured columns=theme_settings.homepage_featured_products_column_count}}
     {{/if}}
