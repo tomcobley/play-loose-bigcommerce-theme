@@ -71,12 +71,26 @@
                 </span>
             </p>
         {{/and}}
-        {{#if brand.name}}
-            <p class="card-text" data-test-info-type="brandName">{{brand.name}}</p>
-        {{/if}}
+
+        {{!-- TC - hide brand name on product card
+          {{#if brand.name}}
+              <p class="card-text" data-test-info-type="brandName">{{brand.name}}</p>
+          {{/if}}
+        --}}
         <h4 class="card-title">
             <a href="{{url}}" {{#if settings.data_tag_enabled}} data-event-type="product-click" {{/if}}>{{name}}</a>
         </h4>
+
+        {{#filter custom_fields 'As worn by' property='name' }}
+          {{! Custom 'As worn by' field }}
+          <p class="card-text">As worn by {{value}}</p>
+        {{/filter}}
+
+        {{#filter custom_fields 'data-subtitle' property='name' }}
+          {{! Custom subtitle field }}
+          <p class="card-text">{{value}}</p>
+        {{/filter}}
+
 
         <div class="card-text" data-test-info-type="price">
             {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
