@@ -1,27 +1,19 @@
 div.profile {
-    border: 1px solid black;
+
+    display: inline-block;
     padding: 5px;
-    margin-bottom: 10px;
+    margin: 0;
 
-    .profile-info {
-
-    }
 
     .profile-img {
-        padding: 0;
-        width: 100px;
-        display: inline;
-    }
-
-    .profile-name {
-        display: inline;
-        margin-bottom: 10px !important;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .profile-desc {
-        position: relative;
+        // position: relative;
         height: 100px;
-        max-height: 100px;
+        // max-height: 100px;
         overflow: hidden;
 
         .read-more {

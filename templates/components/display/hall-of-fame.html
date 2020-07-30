@@ -1,14 +1,10 @@
 <div class="hall-of-fame">
     {{#if category.subcategories}}
-        <div class="sidebarBlock">
-            <ul class="navList">
-                {{#each category.subcategories as |player|}}
-                    <li class="navList-item">
-                        {{> components/display/profile info=player}}
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
+
+        {{! profile-wrapper div required to avoid whitespace issues from partial}}
+        {{#each category.subcategories as |player| ~}}
+            <div class="profile-wrapper">{{> components/display/profile info=player}}</div>
+        {{~/each}}
     {{/if}}
 
 </div>
