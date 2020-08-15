@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ locale_name }}">
     <head>
+        {{!-- Import fonts --}}
+        <link rel="stylesheet" href="https://use.typekit.net/goi1xui.css">
+
         <title>{{ head.title }}</title>
         {{{ resourceHints }}}
         {{{ head.meta_tags }}}
@@ -22,6 +25,7 @@
         </script>
         <script async src="{{cdn 'assets/dist/theme-bundle.head_async.js'}}"></script>
 
+
         {{ getFontsCollection }}
         {{{stylesheet '/assets/css/theme.css'}}}
 
@@ -36,6 +40,7 @@
         {{~inject 'cartId' cart_id}}
         {{~inject 'channelId' settings.channel_id}}
         {{~inject 'template' template}}
+
     </head>
     <body>
         <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>
